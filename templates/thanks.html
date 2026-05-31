@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bedankt! — Babyshower</title>
+    <style>
+        body {
+            background: #fdf7f2;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: #6b4f47;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 50px 40px;
+            box-shadow: 0 3px 16px rgba(120, 60, 50, 0.08);
+            text-align: center;
+            max-width: 460px;
+            width: 100%;
+            border-top: 5px solid #f2a7b8;
+        }
+
+        .emoji {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: Georgia, serif;
+            font-style: italic;
+            color: #f2a7b8;
+            font-size: 2rem;
+            margin-bottom: 14px;
+        }
+
+        p {
+            color: #a07870;
+            line-height: 1.6;
+            margin-bottom: 6px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 28px;
+            padding: 11px 28px;
+            background: #f2a7b8;
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        a:hover {
+            background: #d97f94;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <div class="emoji">🍼</div>
+        <h1>Bedankt, {{ naam }}!</h1>
+        <p>Jouw antwoorden zijn opgeslagen.</p>
+        <p>We zijn benieuwd naar de resultaten!</p>
+        <a href="/">← Nog een formulier invullen</a>
+    </div>
+</body>
+
+</html>

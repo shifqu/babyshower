@@ -1,0 +1,11 @@
+services:
+  babyshower:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - babyshower_db_data:/data
+    environment:
+      DB_PATH: /data/responses.db
+
+volumes:
+  babyshower_db_data:
