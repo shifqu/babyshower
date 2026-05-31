@@ -22,4 +22,4 @@ COPY --chown=appuser:appuser . .
 
 USER appuser
 
-CMD ["gunicorn", "--bind", "0.0.0.0:35050", "--workers", "2", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:35050", "--workers", "2", "--worker-tmp-dir", "/tmp", "app:app"]
