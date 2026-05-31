@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Babyshower – Resultaten</title>
+    <style>
+        :root {
+            --pink: #f2a7b8;
+            --pink-dark: #d97f94;
+            --mint: #8ecfc0;
+            --cream: #fdf7f2;
+            --white: #ffffff;
+            --brown: #6b4f47;
+            --brown-light: #a07870;
+            --border: #f0d8d0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--cream);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: var(--brown);
+            padding: 16px 24px 60px;
+            overflow-x: hidden;
+        }
+
+        /* ── Background blobs ── */
+        .bg-blobs {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+        }
+
+        .blob1 {
+            width: 420px;
+            height: 420px;
+            background: radial-gradient(circle, #f2a7b8, transparent 70%);
+            opacity: .28;
+            top: -80px;
+            left: -80px;
+        }
+
+        .blob2 {
+            width: 380px;
+            height: 380px;
+            background: radial-gradient(circle, #8ecfc0, transparent 70%);
+            opacity: .22;
+            top: 35%;
+            right: -60px;
+        }
+
+        .blob3 {
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(circle, #f5d5c8, transparent 70%);
+            opacity: .28;
+            bottom: 12%;
+            left: 0;
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            padding: 28px 0 32px;
+        }
+
+        .header-deco {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .header-deco svg {
+            filter: drop-shadow(0 2px 8px rgba(160, 80, 60, .15));
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-family: Georgia, serif;
+            font-style: italic;
+            color: var(--pink);
+        }
+
+        .header p {
+            color: var(--brown-light);
+            margin-top: 8px;
+        }
+
+        /* ── Card ── */
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 28px 28px 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 16px rgba(120, 60, 50, 0.08);
+            border-top: 5px solid var(--pink);
+        }
+
+        .card h2 {
+            font-family: Georgia, serif;
+            font-style: italic;
+            color: var(--pink);
+            font-size: 1.7rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .count {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--brown-light);
+            margin-bottom: 20px;
+        }
+
+        /* ── Table wrapper ── */
+        .table-wrap {
+            overflow-x: auto;
+            border-radius: 12px;
+            border: 1.5px solid var(--border);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 0.82rem;
+            white-space: nowrap;
+        }
+
+        thead th {
+            background: var(--pink);
+            color: var(--white);
+            padding: 10px 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            font-size: 0.72rem;
+            position: sticky;
+            top: 0;
+        }
+
+        /* section dividers in header */
+        thead th.section-start {
+            border-left: 2px solid rgba(255, 255, 255, 0.4);
+        }
+
+        tbody tr:nth-child(even) {
+            background: #fff8f6;
+        }
+
+        tbody tr:nth-child(odd) {
+            background: var(--white);
+        }
+
+        tbody tr:hover {
+            background: #fdeef2;
+        }
+
+        tbody td {
+            padding: 9px 12px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+            max-width: 160px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        tbody td.section-start {
+            border-left: 2px solid var(--border);
+        }
+
+        td.mama {
+            color: #c0607a;
+            font-weight: 600;
+        }
+
+        td.papa {
+            color: #5b8fc9;
+            font-weight: 600;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: var(--pink-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: var(--brown-light);
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-blobs">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+        <div class="blob blob3"></div>
+    </div>
+
+    <div class="header">
+        <div class="header-deco">
+            <!-- Baby booties -->
+            <svg width="64" height="40" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="16" cy="30" rx="14" ry="8" fill="#f2a7b8" />
+                <rect x="8" y="14" width="12" height="18" rx="6" fill="#f2a7b8" />
+                <ellipse cx="14" cy="14" rx="5" ry="4" fill="#fbd0da" />
+                <rect x="8" y="20" width="12" height="5" rx="0" fill="#fbd0da" />
+                <ellipse cx="48" cy="30" rx="14" ry="8" fill="#f2a7b8" />
+                <rect x="44" y="14" width="12" height="18" rx="6" fill="#f2a7b8" />
+                <ellipse cx="50" cy="14" rx="5" ry="4" fill="#fbd0da" />
+                <rect x="44" y="20" width="12" height="5" rx="0" fill="#fbd0da" />
+            </svg>
+        </div>
+        <h1>Babyshower</h1>
+        <p>Overzicht van alle inzendingen</p>
+    </div>
+
+    <a href="/" class="back-link">← Terug naar het formulier</a>
+
+    <div class="card">
+        <h2>Resultaten</h2>
+
+        {% if rows %}
+        <p class="count">{{ rows | length }} inzending{{ 'en' if rows | length != 1 }}</p>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Naam</th>
+                        <th class="section-start">Dag</th>
+                        <th>Maand</th>
+                        <th>Tijd</th>
+                        <th>Geslacht</th>
+                        <th>Gewicht</th>
+                        <th>Lengte</th>
+                        <th>Haar</th>
+                        <th>Ogen</th>
+                        <th>Lijkt op</th>
+                        <th>Tips</th>
+                        <th class="section-start" title="Wie gaat de baby het meeste verwennen?">V1</th>
+                        <th title="Wie gaat de meeste luiers verschonen?">V2</th>
+                        <th title="Wie gaat het vaakste voorlezen?">V3</th>
+                        <th title="Wie hoopt dat de baby op hem/haar lijkt?">V4</th>
+                        <th title="Wie heeft de naam van de baby bedacht?">V5</th>
+                        <th title="Wie hoopt dat de baby net zo slim als hem/haar wordt?">V6</th>
+                        <th title="Wie wil meer kinderen?">V7</th>
+                        <th title="Wie gaat zich het snelste zorgen maken?">V8</th>
+                        <th title="Wie heeft er meer geduld?">V9</th>
+                        <th title="Wie gaat de meeste foto's nemen van de baby?">V10</th>
+                        <th title="Wie heeft er meer voorbereiding gedaan voor de baby?">V11</th>
+                        <th title="Wie gaat er 's nachts het vaakst uit?">V12</th>
+                        <th title="Wie gaat de meeste babykleding kopen?">V13</th>
+                        <th title="Wie heeft de familie als eerste over de baby verteld?">V14</th>
+                        <th title="Wie zingt de mooiste babyliedjes?">V15</th>
+                        <th class="section-start">Ingediend</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in rows %}
+                    <tr>
+                        <td>{{ r['id'] }}</td>
+                        <td><strong>{{ r['naam'] }}</strong></td>
+                        <td class="section-start">{{ r['geboortedag'] }}</td>
+                        <td>{{ r['geboortemaand'] }}</td>
+                        <td>{{ r['geboortetijd'] }}</td>
+                        <td>{{ r['jongen_meisje'] }}</td>
+                        <td>{{ r['gewicht'] }}</td>
+                        <td>{{ r['lengte'] }}</td>
+                        <td>{{ r['kleur_haar'] }}</td>
+                        <td>{{ r['kleur_ogen'] }}</td>
+                        <td>{{ r['lijkt_op'] }}</td>
+                        <td title="{{ r['tips'] }}">{{ r['tips'] }}</td>
+                        {% for i in range(1, 16) %}
+                        <td
+                            class="{{ 'section-start' if i == 1 else '' }} {{ 'mama' if r['q' ~ i] == 'Mama' else ('papa' if r['q' ~ i] == 'Papa' else '') }}">
+                            {{ r['q' ~ i] or '–' }}
+                        </td>
+                        {% endfor %}
+                        <td class="section-start">{{ r['ingediend_op'][:16] if r['ingediend_op'] else '' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="empty">Nog geen inzendingen. 🌸</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>

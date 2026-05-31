@@ -86,5 +86,15 @@ def submit():
     return render_template("thanks.html", naam=f.get("naam", "Gast"))
 
 
+@app.route("/results69")
+def results():
+    with sqlite3.connect(DB) as conn:
+        conn.row_factory = sqlite3.Row
+        rows = conn.execute(
+            "SELECT * FROM responses ORDER BY ingediend_op DESC"
+        ).fetchall()
+    return render_template("results.html", rows=rows)
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
