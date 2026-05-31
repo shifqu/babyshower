@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Babyshower – Resultaten</title>
+    <title>Babyshower - Resultaten</title>
     <style>
         :root {
             --pink: #f2a7b8;
@@ -193,6 +193,11 @@
             font-weight: 600;
         }
 
+        td.both {
+            color: #7a7;
+            font-weight: 600;
+        }
+
         .back-link {
             display: inline-block;
             margin-bottom: 24px;
@@ -253,6 +258,7 @@
                     <tr>
                         <th>#</th>
                         <th>Naam</th>
+                        <th>Baby naam</th>
                         <th class="section-start">Dag</th>
                         <th>Maand</th>
                         <th>Tijd</th>
@@ -286,6 +292,7 @@
                     <tr>
                         <td>{{ r['id'] }}</td>
                         <td><strong>{{ r['naam'] }}</strong></td>
+                        <td>{{ r['baby_naam'] or '-' }}</td>
                         <td class="section-start">{{ r['geboortedag'] }}</td>
                         <td>{{ r['geboortemaand'] }}</td>
                         <td>{{ r['geboortetijd'] }}</td>
@@ -297,9 +304,11 @@
                         <td>{{ r['lijkt_op'] }}</td>
                         <td title="{{ r['tips'] }}">{{ r['tips'] }}</td>
                         {% for i in range(1, 16) %}
-                        <td
-                            class="{{ 'section-start' if i == 1 else '' }} {{ 'mama' if r['q' ~ i] == 'Mama' else ('papa' if r['q' ~ i] == 'Papa' else '') }}">
-                            {{ r['q' ~ i] or '–' }}
+                        {% set val = r['q' ~ i] or '' %}
+                        {% set cls = 'both' if ('Mama' in val and 'Papa' in val) else ('mama' if val == 'Mama' else
+                        ('papa' if val == 'Papa' else '')) %}
+                        <td class="{{ 'section-start ' if i == 1 else '' }}{{ cls }}">
+                            {{ val or '-' }}
                         </td>
                         {% endfor %}
                         <td class="section-start">{{ r['ingediend_op'][:16] if r['ingediend_op'] else '' }}</td>

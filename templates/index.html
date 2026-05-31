@@ -223,7 +223,8 @@
             color: var(--brown);
         }
 
-        input[type="radio"] {
+        input[type="radio"],
+        input[type="checkbox"] {
             accent-color: var(--pink);
             width: 15px;
             height: 15px;
@@ -432,6 +433,11 @@
                         <input type="text" name="naam" required placeholder="Vul jouw naam in">
                     </div>
 
+                    <div class="field">
+                        <label>Naam van de baby *</label>
+                        <input type="text" name="baby_naam" required placeholder="Hoe denk jij dat de baby zal heten?">
+                    </div>
+
                     <div class="grid-2">
                         <div class="field">
                             <label>Geboortedag *</label>
@@ -546,10 +552,10 @@
                         <span class="mp-text">{{ vraag }}</span>
                         <div class="mp-options">
                             <label class="opt-mama">
-                                <input type="radio" name="q{{ loop.index }}" value="Mama"> Mama
+                                <input type="checkbox" name="q{{ loop.index }}" value="Mama"> Mama
                             </label>
                             <label class="opt-papa">
-                                <input type="radio" name="q{{ loop.index }}" value="Papa"> Papa
+                                <input type="checkbox" name="q{{ loop.index }}" value="Papa"> Papa
                             </label>
                         </div>
                     </div>

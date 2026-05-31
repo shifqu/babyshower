@@ -16,6 +16,7 @@ def init_db():
             CREATE TABLE IF NOT EXISTS responses (
                 id              INTEGER PRIMARY KEY AUTOINCREMENT,
                 naam            TEXT NOT NULL,
+                baby_naam       TEXT,
                 geboortedag     TEXT,
                 geboortemaand   TEXT,
                 geboortetijd    TEXT,
@@ -32,6 +33,11 @@ def init_db():
                 ingediend_op    TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
+        # Migrate existing databases that predate the baby_naam column
+        try:
+            conn.execute("ALTER TABLE responses ADD COLUMN baby_naam TEXT")
+        except sqlite3.OperationalError:
+            pass  # column already exists
 
 
 init_db()
@@ -49,13 +55,14 @@ def submit():
         conn.execute(
             """
             INSERT INTO responses (
-                naam, geboortedag, geboortemaand, geboortetijd, jongen_meisje,
+                naam, baby_naam, geboortedag, geboortemaand, geboortetijd, jongen_meisje,
                 gewicht, lengte, kleur_haar, kleur_ogen, lijkt_op, tips,
                 q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11, q12, q13, q14, q15
-            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             """,
             (
                 f.get("naam"),
+                f.get("baby_naam"),
                 f.get("geboortedag"),
                 f.get("geboortemaand"),
                 f.get("geboortetijd"),
@@ -66,21 +73,21 @@ def submit():
                 f.get("kleur_ogen"),
                 f.get("lijkt_op"),
                 f.get("tips"),
-                f.get("q1"),
-                f.get("q2"),
-                f.get("q3"),
-                f.get("q4"),
-                f.get("q5"),
-                f.get("q6"),
-                f.get("q7"),
-                f.get("q8"),
-                f.get("q9"),
-                f.get("q10"),
-                f.get("q11"),
-                f.get("q12"),
-                f.get("q13"),
-                f.get("q14"),
-                f.get("q15"),
+                ", ".join(f.getlist("q1")),
+                ", ".join(f.getlist("q2")),
+                ", ".join(f.getlist("q3")),
+                ", ".join(f.getlist("q4")),
+                ", ".join(f.getlist("q5")),
+                ", ".join(f.getlist("q6")),
+                ", ".join(f.getlist("q7")),
+                ", ".join(f.getlist("q8")),
+                ", ".join(f.getlist("q9")),
+                ", ".join(f.getlist("q10")),
+                ", ".join(f.getlist("q11")),
+                ", ".join(f.getlist("q12")),
+                ", ".join(f.getlist("q13")),
+                ", ".join(f.getlist("q14")),
+                ", ".join(f.getlist("q15")),
             ),
         )
     return render_template("thanks.html", naam=f.get("naam", "Gast"))
