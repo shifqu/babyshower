@@ -63,6 +63,27 @@
         a:hover {
             background: #d97f94;
         }
+
+        .btn-secondary {
+            background: transparent;
+            color: #f2a7b8;
+            border: 2px solid #f2a7b8;
+            margin-left: 12px;
+        }
+
+        .btn-secondary:hover {
+            background: #fdf0f3;
+        }
+
+        @media (max-width: 420px) {
+
+            a,
+            .btn-secondary {
+                display: block;
+                margin-left: 0;
+                margin-top: 12px;
+            }
+        }
     </style>
 </head>
 
@@ -73,6 +94,7 @@
         <p>Jouw antwoorden zijn opgeslagen.</p>
         <p>We zijn benieuwd naar de resultaten!</p>
         <a href="/">← Nog een formulier invullen</a>
+        <a class="btn-secondary" href="/results69">Bekijk de resultaten →</a>
     </div>
 </body>
 
