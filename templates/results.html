@@ -206,7 +206,41 @@
             text-align: center;
         }
 
-        /* Question column in Mama/Papa table stays left-aligned */
+        /* ── Expandable tip cell ── */
+        .tip-cell {
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .tip-short {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+            max-width: 180px;
+        }
+
+        .tip-short.expanded {
+            -webkit-line-clamp: unset;
+            line-clamp: unset;
+            overflow: visible;
+            white-space: pre-wrap;
+        }
+
+        .tip-cell::after {
+            content: ' ▸';
+            font-size: 0.7rem;
+            color: var(--pink);
+            vertical-align: middle;
+        }
+
+        .tip-cell.expanded::after {
+            content: ' ▾';
+        }
+
         .table-sticky-col td:first-child {
             text-align: left;
             vertical-align: middle;
@@ -323,7 +357,8 @@
                         <td>{{ r['kleur_haar'] }}</td>
                         <td>{{ r['kleur_ogen'] }}</td>
                         <td>{{ r['lijkt_op'] }}</td>
-                        <td title="{{ r['tips'] }}">{{ r['tips'] }}</td>
+                        <td class="tip-cell">{% if r['tips'] %}<span class="tip-short">{{ r['tips'] }}</span>{% else
+                            %}–{% endif %}</td>
                         <td class="section-start">{{ r['ingediend_op'][:16] if r['ingediend_op'] else '' }}</td>
                     </tr>
                     {% endfor %}
@@ -383,5 +418,15 @@
         {% endif %}
     </div>
 </body>
+<script>
+    document.querySelectorAll('.tip-cell').forEach(function (cell) {
+        cell.addEventListener('click', function () {
+            var span = cell.querySelector('.tip-short');
+            if (!span) return;
+            span.classList.toggle('expanded');
+            cell.classList.toggle('expanded');
+        });
+    });
+</script>
 
 </html>
