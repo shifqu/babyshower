@@ -120,6 +120,14 @@
             margin-bottom: 20px;
         }
 
+        .card h3 {
+            font-family: Georgia, serif;
+            font-style: italic;
+            color: var(--brown-light);
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+        }
+
         .count {
             text-align: center;
             font-size: 0.85rem;
@@ -132,6 +140,24 @@
             overflow-x: auto;
             border-radius: 12px;
             border: 1.5px solid var(--border);
+        }
+
+        /* Sticky first column for the Mama/Papa table */
+        .table-sticky-col td:first-child,
+        .table-sticky-col th:first-child {
+            position: sticky;
+            left: 0;
+            z-index: 1;
+            background: var(--white);
+        }
+
+        .table-sticky-col th:first-child {
+            background: var(--pink);
+        }
+
+        tbody tr:nth-child(even) .table-sticky-col td:first-child,
+        tbody tr:nth-child(even) td:first-child {
+            background: #fff8f6;
         }
 
         table {
@@ -173,10 +199,17 @@
         tbody td {
             padding: 9px 12px;
             border-bottom: 1px solid var(--border);
-            vertical-align: top;
+            vertical-align: middle;
             max-width: 160px;
             overflow: hidden;
             text-overflow: ellipsis;
+            text-align: center;
+        }
+
+        /* Question column in Mama/Papa table stays left-aligned */
+        .table-sticky-col td:first-child {
+            text-align: left;
+            vertical-align: middle;
         }
 
         tbody td.section-start {
@@ -252,7 +285,10 @@
 
         {% if rows %}
         <p class="count">{{ rows | length }} inzending{{ 'en' if rows | length != 1 }}</p>
-        <div class="table-wrap">
+
+        <!-- ── Table 1: Baby Voorspelling ── -->
+        <h3>Baby Voorspelling</h3>
+        <div class="table-wrap" style="margin-bottom: 32px;">
             <table>
                 <thead>
                     <tr>
@@ -269,21 +305,6 @@
                         <th>Ogen</th>
                         <th>Lijkt op</th>
                         <th>Tips</th>
-                        <th class="section-start" title="Wie gaat de baby het meeste verwennen?">V1</th>
-                        <th title="Wie gaat de meeste luiers verschonen?">V2</th>
-                        <th title="Wie gaat het vaakste voorlezen?">V3</th>
-                        <th title="Wie hoopt dat de baby op hem/haar lijkt?">V4</th>
-                        <th title="Wie heeft de naam van de baby bedacht?">V5</th>
-                        <th title="Wie hoopt dat de baby net zo slim als hem/haar wordt?">V6</th>
-                        <th title="Wie wil meer kinderen?">V7</th>
-                        <th title="Wie gaat zich het snelste zorgen maken?">V8</th>
-                        <th title="Wie heeft er meer geduld?">V9</th>
-                        <th title="Wie gaat de meeste foto's nemen van de baby?">V10</th>
-                        <th title="Wie heeft er meer voorbereiding gedaan voor de baby?">V11</th>
-                        <th title="Wie gaat er 's nachts het vaakst uit?">V12</th>
-                        <th title="Wie gaat de meeste babykleding kopen?">V13</th>
-                        <th title="Wie heeft de familie als eerste over de baby verteld?">V14</th>
-                        <th title="Wie zingt de mooiste babyliedjes?">V15</th>
                         <th class="section-start">Ingediend</th>
                     </tr>
                 </thead>
@@ -303,15 +324,55 @@
                         <td>{{ r['kleur_ogen'] }}</td>
                         <td>{{ r['lijkt_op'] }}</td>
                         <td title="{{ r['tips'] }}">{{ r['tips'] }}</td>
-                        {% for i in range(1, 16) %}
+                        <td class="section-start">{{ r['ingediend_op'][:16] if r['ingediend_op'] else '' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ── Table 2: Mama of Papa ── -->
+        {% set vragen = [
+        "Wie gaat de baby het meeste verwennen?",
+        "Wie gaat de meeste luiers verschonen?",
+        "Wie gaat het vaakste voorlezen?",
+        "Wie hoopt dat de baby op hem/haar lijkt?",
+        "Wie heeft de naam van de baby bedacht?",
+        "Wie hoopt dat de baby net zo slim als hem/haar wordt?",
+        "Wie wil meer kinderen?",
+        "Wie gaat zich het snelste zorgen maken?",
+        "Wie heeft er meer geduld?",
+        "Wie gaat de meeste foto's nemen van de baby?",
+        "Wie heeft er meer voorbereiding gedaan voor de baby?",
+        "Wie gaat er 's nachts het vaakst uit?",
+        "Wie gaat de meeste babykleding kopen?",
+        "Wie heeft de familie als eerste over de baby verteld?",
+        "Wie zingt de mooiste babyliedjes?"
+        ] %}
+        <h3>Mama of Papa?</h3>
+        <div class="table-wrap">
+            <table class="table-sticky-col">
+                <thead>
+                    <tr>
+                        <th>Vraag</th>
+                        {% for r in rows %}
+                        <th>{{ r['naam'] }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in range(1, 16) %}
+                    <tr>
+                        <td style="white-space: normal; max-width: 260px;">
+                            <span style="color: var(--pink); font-weight:700; margin-right:6px;">{{ i }}.</span>{{
+                            vragen[i-1] }}
+                        </td>
+                        {% for r in rows %}
                         {% set val = r['q' ~ i] or '' %}
                         {% set cls = 'both' if ('Mama' in val and 'Papa' in val) else ('mama' if val == 'Mama' else
                         ('papa' if val == 'Papa' else '')) %}
-                        <td class="{{ 'section-start ' if i == 1 else '' }}{{ cls }}">
-                            {{ val or '-' }}
-                        </td>
+                        <td class="{{ cls }}">{{ val or '–' }}</td>
                         {% endfor %}
-                        <td class="section-start">{{ r['ingediend_op'][:16] if r['ingediend_op'] else '' }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
