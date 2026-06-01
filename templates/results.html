@@ -337,7 +337,7 @@
                 <tbody>
                     {% for r in rows %}
                     <tr>
-                        <td>{{ loop.index }}</td>
+                        <td>{{ loop.revindex }}</td>
                         <td><strong>{{ r['naam'] }}</strong></td>
                         <td>{{ r['baby_naam'] or '-' }}</td>
                         <td class="section-start">{{ r['geboortedag'] }}</td>
