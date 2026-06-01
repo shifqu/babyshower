@@ -208,8 +208,11 @@
 
         /* ── Expandable tip cell ── */
         .tip-cell {
-            cursor: pointer;
             text-align: left;
+        }
+
+        .tip-cell.expandable {
+            cursor: pointer;
         }
 
         .tip-short {
@@ -228,17 +231,6 @@
             line-clamp: unset;
             overflow: visible;
             white-space: pre-wrap;
-        }
-
-        .tip-cell::after {
-            content: ' ▸';
-            font-size: 0.7rem;
-            color: var(--pink);
-            vertical-align: middle;
-        }
-
-        .tip-cell.expanded::after {
-            content: ' ▾';
         }
 
         .table-sticky-col td:first-child {
@@ -420,12 +412,15 @@
 </body>
 <script>
     document.querySelectorAll('.tip-cell').forEach(function (cell) {
-        cell.addEventListener('click', function () {
-            var span = cell.querySelector('.tip-short');
-            if (!span) return;
-            span.classList.toggle('expanded');
-            cell.classList.toggle('expanded');
-        });
+        var span = cell.querySelector('.tip-short');
+        if (!span) return;
+        // Only enable expand if text is actually clamped
+        if (span.scrollHeight > span.clientHeight) {
+            cell.classList.add('expandable');
+            cell.addEventListener('click', function () {
+                span.classList.toggle('expanded');
+            });
+        }
     });
 </script>
 
